@@ -9,13 +9,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.londonappbrewery.destini.R;
-
 public class MainActivity extends AppCompatActivity {
     public TextView mStoryTextView;
     public Button mButtonTop;
     public Button mButtonBottom;
-    public int mCurrentState;
+    public int mStoryIndex;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,11 +25,11 @@ public class MainActivity extends AppCompatActivity {
         mButtonBottom = (Button) findViewById(R.id.buttonBottom);
 
         if (savedInstanceState != null) {
-            mCurrentState = savedInstanceState.getInt("currentState");
-            setStoryContext(mCurrentState);
+            mStoryIndex = savedInstanceState.getInt("currentState");
+            setStoryContext(mStoryIndex);
         }
         else {
-            mCurrentState = 1;
+            mStoryIndex = 1;
         }
 
         mButtonTop.setOnClickListener(new View.OnClickListener() {
@@ -39,15 +37,15 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Log.d("Top", "Pressed");
                 if (mStoryTextView.getText().equals(getString(R.string.T1_Story))) {
-                    mCurrentState = 3;
+                    mStoryIndex = 3;
                 }
                 else if (mStoryTextView.getText().equals(getString(R.string.T2_Story))) {
-                    mCurrentState = 3;
+                    mStoryIndex = 3;
                 }
                 else if (mStoryTextView.getText().equals(getString(R.string.T3_Story))){
-                    mCurrentState = 6;
+                    mStoryIndex = 6;
                 }
-                setStoryContext(mCurrentState);
+                setStoryContext(mStoryIndex);
             }
         });
 
@@ -55,15 +53,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (mStoryTextView.getText().equals(getString(R.string.T1_Story))) {
-                    mCurrentState = 2;
+                    mStoryIndex = 2;
                 }
                 else if (mStoryTextView.getText().equals(getString(R.string.T2_Story))) {
-                    mCurrentState = 4;
+                    mStoryIndex = 4;
                 }
                 else if (mStoryTextView.getText().equals(getString(R.string.T3_Story))){
-                    mCurrentState = 5;
+                    mStoryIndex = 5;
                 }
-                setStoryContext(mCurrentState);
+                setStoryContext(mStoryIndex);
             }
         });
     }
@@ -125,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void resetGame() {
-        mCurrentState = 1;
+        mStoryIndex = 1;
         mStoryTextView.setText(R.string.T1_Story);
         mButtonTop.setText(R.string.T1_Ans1);
         mButtonTop.setVisibility(View.VISIBLE);
@@ -136,6 +134,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putInt("currentState", mCurrentState);
+        outState.putInt("currentState", mStoryIndex);
     }
 }
